@@ -1,4 +1,5 @@
 import 'package:dz_shop/screens/on_bording/on_bording.dart';
+import 'package:dz_shop/shered/styles/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightThem,
+      darkTheme: darkThem,
+      themeMode: ThemeMode.light,
+      title: 'DzShop',
       home: OnBordingScreen(),
     );
   }
