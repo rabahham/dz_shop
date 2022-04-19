@@ -10,7 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 Widget defultButton({
   // required context,
   required String text,
-  required Function function,
+  required VoidCallback function,
   Color? background,
   double borderRadius = 30,
   double elevation = 5,
@@ -25,9 +25,7 @@ Widget defultButton({
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           // minWidth: MediaQuery.of(context).size.width,
           minWidth: minWidth,
-          onPressed: () {
-            function();
-          },
+          onPressed: function,
           child: Text(
             text,
             textAlign: TextAlign.center,
@@ -152,7 +150,7 @@ Widget emailField({
   required String hintText,
   TextInputType keyboardType = TextInputType.text,
   bool autofocus = false,
-  required Icon prefixIconicon,
+  var prefixIconicon = const Icon(Icons.email),
   double borderRadius = 10,
   int maxlines = 1,
 }) =>

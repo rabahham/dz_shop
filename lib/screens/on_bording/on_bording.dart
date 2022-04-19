@@ -54,7 +54,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                 ShopLoginScreen(),
               );
             },
-            child: Text('skio'),
+            child: Text('skip'),
           ),
         ],
       ),

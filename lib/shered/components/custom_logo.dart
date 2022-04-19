@@ -4,23 +4,17 @@ class CustomLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 30),
+      padding: EdgeInsets.only(top: 20),
       child: Container(
         height: MediaQuery.of(context).size.height * .3,
         child: Stack(
           alignment: Alignment.center,
-          children: <Widget>[
-            Image(
-              //image: AssetImage('assets/images/annonce_dz.png'),
-              image: AssetImage('assets/images/logo.png'),
+          children: [
+            const Image(
+              image: AssetImage(
+                'assets/images/logo.jpg',
+              ),
             ),
-            // Positioned(
-            //   bottom: 0,
-            //   // child: Text(
-            //   //   'Bati Sit',
-            //   //   style: TextStyle(fontFamily: 'Pacifico', fontSize: 25),
-            //   // ),
-            // )
           ],
         ),
       ),
