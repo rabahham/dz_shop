@@ -1,8 +1,11 @@
+import 'package:bloc/bloc.dart';
 import 'package:dz_shop/screens/on_bording/on_bording.dart';
+import 'package:dz_shop/shered/bloc_observer.dart';
 import 'package:dz_shop/shered/styles/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 

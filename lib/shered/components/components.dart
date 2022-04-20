@@ -110,7 +110,7 @@ Widget passwordField({
           ),
         ));
 
-//password field
+//Text field
 Widget textdField({
   required TextEditingController controller,
   required String hintText,
@@ -148,7 +148,7 @@ Widget textdField({
 Widget emailField({
   required TextEditingController controller,
   required String hintText,
-  TextInputType keyboardType = TextInputType.text,
+  TextInputType keyboardType = TextInputType.emailAddress,
   bool autofocus = false,
   var prefixIconicon = const Icon(Icons.email),
   double borderRadius = 10,
