@@ -62,6 +62,15 @@ class ShopLoginScreen extends StatelessWidget {
                         controller: passwordController,
                         hintText: 'Password',
                         prefixIconicon: Icon(Icons.vpn_key),
+                        onsubmit: (value) {
+                          if (_formKey.currentState!.validate()) {
+                            print(emailController.text);
+                            print(passwordController.text);
+                            ShopLoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text);
+                          }
+                        },
                         function: () {
                           ShopLoginCubit.get(context).passWordVisible();
                           // setState(() {

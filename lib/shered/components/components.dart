@@ -72,6 +72,7 @@ Widget defultButtonIcon({
 Widget passwordField({
   required TextEditingController controller,
   required VoidCallback function,
+  Function(String)? onsubmit,
   required String hintText,
   required bool obscureText,
   bool autofocus = false,
@@ -82,6 +83,7 @@ Widget passwordField({
         autofocus: autofocus,
         controller: controller,
         obscureText: obscureText,
+        onFieldSubmitted: onsubmit,
         validator: (value) {
           RegExp regex = new RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
