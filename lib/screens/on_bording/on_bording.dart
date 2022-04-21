@@ -1,5 +1,6 @@
 import 'package:dz_shop/screens/login/shop_login_screen.dart';
 import 'package:dz_shop/shered/components/components.dart';
+import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
 import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -49,10 +50,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              navigatToRomplace(
-                context,
-                ShopLoginScreen(),
-              );
+              onsubmited();
             },
             child: Text('skip'),
           ),
@@ -103,7 +101,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                 FloatingActionButton(
                   onPressed: () {
                     if (isLast) {
-                      navigatToRomplace(context, ShopLoginScreen());
+                      onsubmited();
                     } else {
                       boardController.nextPage(
                         duration: Duration(
@@ -147,4 +145,15 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
           ),
         ],
       );
+
+  void onsubmited() {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        navigatToRomplace(
+          context,
+          ShopLoginScreen(),
+        );
+      }
+    });
+  }
 }
