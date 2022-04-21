@@ -6,6 +6,7 @@ import 'package:dz_shop/shered/components/custom_logo.dart';
 import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   const ShopLoginScreen({Key? key}) : super(key: key);
@@ -28,6 +29,27 @@ class ShopLoginScreen extends StatelessWidget {
       child: BlocConsumer<ShopLoginCubit, ShopLginState>(
         listener: (context, state) {
           // TODO: implement listener
+          if (state is ShopLoginSuccessState) {
+            if (state.loginModel.status!) {
+              Fluttertoast.showToast(
+                  msg: state.loginModel.message!,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: Colors.green[300],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            } else {
+              Fluttertoast.showToast(
+                  msg: state.loginModel.message!,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: Colors.red[300],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+          }
         },
         builder: (context, state) {
           return Scaffold(

@@ -7,7 +7,7 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         headers: {
           'Content-Type': 'application/json',
-          // 'lang': 'ar',
+          // 'lang': 'en',
         }),
   );
 
@@ -26,7 +26,7 @@ class DioHelper {
   static Future<Response> getData({
     required String url,
     required Map<String, dynamic> query,
-    String lang = 'ar',
+    String lang = 'en',
     String? token,
   }) async {
     dio.options.headers = {
