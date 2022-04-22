@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -245,3 +246,35 @@ void navigatToRomplace(context, widget) => Navigator.pushAndRemoveUntil(
         ), (route) {
       return false;
     });
+
+//  showToast
+void showToast({
+  required String text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: chooseToastColor(state),
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+enum ToastStates { success, error, warning }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.success:
+      color = Colors.green;
+      break;
+    case ToastStates.warning:
+      color = Colors.yellow;
+      break;
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+  }
+  return color;
+}

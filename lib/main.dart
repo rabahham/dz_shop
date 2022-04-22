@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:dz_shop/screens/login/shop_login_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
+import 'package:dz_shop/screens/login/shop_login_screen.dart';
 import 'package:dz_shop/screens/on_bording/on_bording.dart';
 import 'package:dz_shop/shered/bloc_observer.dart';
 import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
@@ -16,18 +17,35 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 
   bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  print('rani f main');
-  print(onBoarding);
+  String token = CacheHelper.getData(key: 'token');
+  // print('rani f main');
+  // print(onBoarding);
+
+  Widget widget;
+
+  if (onBoarding != null) {
+    if (token != null) {
+      widget = ShopLayout();
+    } else {
+      widget = ShopLoginScreen();
+    }
+  } else {
+    widget = ShopLoginScreen();
+  }
+
   runApp(MyApp(
-    onBoarding: onBoarding,
+    // onBoarding: onBoarding,
+    staretWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final bool onBoarding;
+  final Widget staretWidget;
+  // final bool onBoarding;
   const MyApp({
     Key? key,
-    required this.onBoarding,
+    required this.staretWidget,
+    // required this.onBoarding,
   }) : super(key: key);
 
   // This widget is the root of your application.
@@ -39,7 +57,8 @@ class MyApp extends StatelessWidget {
       darkTheme: darkThem,
       themeMode: ThemeMode.light,
       title: 'DzShop',
-      home: onBoarding ? ShopLoginScreen() : OnBordingScreen(),
+      home: staretWidget,
+      // home: OnBordingScreen(),
     );
   }
 }

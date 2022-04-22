@@ -1,8 +1,10 @@
 import 'package:dz_shop/bessiness-logic/login_cubit/login-state.dart';
 import 'package:dz_shop/bessiness-logic/login_cubit/login_cubit.dart';
+import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
 import 'package:dz_shop/screens/register/shop_register_screen.dart';
 import 'package:dz_shop/shered/components/components.dart';
 import 'package:dz_shop/shered/components/custom_logo.dart';
+import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
 import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,23 +33,25 @@ class ShopLoginScreen extends StatelessWidget {
           // TODO: implement listener
           if (state is ShopLoginSuccessState) {
             if (state.loginModel.status!) {
-              Fluttertoast.showToast(
-                  msg: state.loginModel.message!,
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.green[300],
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.data!.token,
+              ).then((value) {
+                navigatToRomplace(context, ShopLayout());
+              });
+              showToast(
+                  state: ToastStates.success, text: state.loginModel.message!);
             } else {
-              Fluttertoast.showToast(
-                  msg: state.loginModel.message!,
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.red[300],
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              // Fluttertoast.showToast(
+              //     msg: state.loginModel.message!,
+              //     toastLength: Toast.LENGTH_LONG,
+              //     gravity: ToastGravity.BOTTOM,
+              //     timeInSecForIosWeb: 5,
+              //     backgroundColor: Colors.red[300],
+              //     textColor: Colors.white,
+              //     fontSize: 16.0);
+              showToast(
+                  state: ToastStates.error, text: state.loginModel.message!);
             }
           }
         },
@@ -113,8 +117,8 @@ class ShopLoginScreen extends StatelessWidget {
                                 // _formKey.currentState!.validate();
                                 // signIn(emailController.text, passwordController.text);
                                 if (_formKey.currentState!.validate()) {
-                                  print(emailController.text);
-                                  print(passwordController.text);
+                                  // print(emailController.text);
+                                  // print(passwordController.text);
                                   ShopLoginCubit.get(context).userLogin(
                                       email: emailController.text,
                                       password: passwordController.text);
@@ -166,22 +170,3 @@ class ShopLoginScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /////////////////////
-// ///
-
-
-
-
