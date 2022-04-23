@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
@@ -8,6 +9,7 @@ import 'package:dz_shop/shered/bloc_observer.dart';
 import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
 import 'package:dz_shop/shered/network/remote/dio_helper.dart';
 import 'package:dz_shop/shered/styles/themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,11 +17,13 @@ void main() async {
 
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
+  // CacheHelper.removeData(key: 'token');
 
   bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  String token = CacheHelper.getData(key: 'token');
-  // print('rani f main');
-  // print(onBoarding);
+  String? token = CacheHelper.getData(key: 'token');
+  // onBoarding == false;
+  print('rani f main');
+  print(onBoarding);
 
   Widget widget;
 
@@ -51,14 +55,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: lightThem,
-      darkTheme: darkThem,
-      themeMode: ThemeMode.light,
-      title: 'DzShop',
-      home: staretWidget,
-      // home: OnBordingScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => LayoutShopCuibit(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: lightThem,
+        darkTheme: darkThem,
+        themeMode: ThemeMode.light,
+        title: 'DzShop',
+        home: staretWidget,
+        // home: OnBordingScreen(),
+      ),
     );
   }
 }
