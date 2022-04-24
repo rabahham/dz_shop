@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import 'package:dz_shop/shered/components/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
@@ -20,10 +21,11 @@ void main() async {
   // CacheHelper.removeData(key: 'token');
 
   bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  String? token = CacheHelper.getData(key: 'token');
+  token = CacheHelper.getData(key: 'token');
   // onBoarding == false;
   print('rani f main');
   print(onBoarding);
+  print(token);
 
   Widget widget;
 
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => LayoutShopCuibit(),
+          create: (BuildContext context) => LayoutShopCuibit()..getHomeData(),
         ),
       ],
       child: MaterialApp(
