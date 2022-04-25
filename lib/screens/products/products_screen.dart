@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
+import 'package:dz_shop/models/shopappmodels/categories_model.dart';
 import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
 import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,14 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var modelsHome = LayoutShopCuibit.get(context).homeModelAuto;
+    var modelsCetegories = LayoutShopCuibit.get(context).categoriesModel;
     return BlocConsumer<LayoutShopCuibit, LayoutShopState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return modelsHome != null
-            ? homeProuductsBuilder(modelsHome)
+        return modelsHome != null && modelsCetegories != null
+            ? homeProuductsBuilder(modelsHome, modelsCetegories)
             : Center(
                 child: CircularProgressIndicator(),
               );
@@ -27,7 +29,9 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget homeProuductsBuilder(HomeModelAuto model) => SingleChildScrollView(
+  Widget homeProuductsBuilder(
+          HomeModelAuto model, CategoriesModel categories) =>
+      SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,11 +78,12 @@ class ProductsScreen extends StatelessWidget {
                     child: ListView.separated(
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildCategoryItem(),
+                      itemBuilder: (context, index) =>
+                          buildCategoryItem(categories.data!.data![index]),
                       separatorBuilder: (context, index) => SizedBox(
                         width: 10.0,
                       ),
-                      itemCount: 10,
+                      itemCount: categories.data!.data!.length,
                     ),
                   ),
                   SizedBox(
@@ -112,15 +117,14 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategoryItem() => Container(
+  Widget buildCategoryItem(DataModel model) => Container(
         width: 100.0,
         height: 100.0,
         child: Stack(
           alignment: AlignmentDirectional.bottomStart,
           children: [
             Image(
-              image: NetworkImage(
-                  'https://student.valuxapps.com/storage/uploads/categories/16301438353uCFh.29118.jpg'),
+              image: NetworkImage('${model.image}'),
               height: 100.0,
               width: 100.0,
               fit: BoxFit.cover,
@@ -130,7 +134,7 @@ class ProductsScreen extends StatelessWidget {
               width: double.infinity,
               color: Colors.black.withOpacity(.7),
               child: Text(
-                'Electronics',
+                '${model.name}',
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
+import 'package:dz_shop/models/shopappmodels/categories_model.dart';
 import 'package:dz_shop/models/shopappmodels/home_models.dart';
 import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
 import 'package:dz_shop/screens/cateogries/cateogrie_screen.dart';
@@ -18,8 +19,6 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
   LayoutShopCuibit() : super(LayoutShopInitailState());
   static LayoutShopCuibit get(context) => BlocProvider.of(context);
 
-  HomeModelAuto? homeModelAuto;
-
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
@@ -34,6 +33,8 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     emit(LayoutShopChangeBottmNavState());
   }
 
+  HomeModelAuto? homeModelAuto;
+
   void getHomeData() {
     emit(LayoutShopLoadingHomeDataState());
 
@@ -46,17 +47,30 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
 
       homeModelAuto = HomeModelAuto.fromJson(value.data);
       print('rani f success');
-      // print(homeModel!.data!.banners![0].image);
-      print(homeModelAuto!.status);
-      print(homeModelAuto!.data!.banners![0].image);
 
-      // print(homeModel.toString());
-      // print('hhhhhhhhhhhhhhhhhhhhhhhh');
-      // printFllTextss(homeModel.toString());
       emit(LayoutShopSuccessHomeDataState());
     }).catchError((error) {
       print(error.toString());
       emit(LayoutShopErrorHomeDataState());
+    });
+  }
+
+  CategoriesModel? categoriesModel;
+
+  void getCategoriesData() {
+    DioHelper.getData(
+      url: GET_CATEGORIES,
+    ).then((value) {
+      print(value.data.toString());
+      print('secseeeeeeeeee cetegories');
+
+      categoriesModel = CategoriesModel.fromJson(value.data);
+      print('rani f success cetegor');
+
+      emit(LayoutShopSuccessCategiesDataState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LayoutShopErrorCategoriesDataState());
     });
   }
 }

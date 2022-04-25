@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => LayoutShopCuibit()..getHomeData(),
+          create: (BuildContext context) => LayoutShopCuibit()
+            ..getCategoriesData()
+            ..getHomeData(),
         ),
       ],
       child: MaterialApp(
