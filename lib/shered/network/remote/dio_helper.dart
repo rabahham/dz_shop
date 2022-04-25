@@ -32,7 +32,7 @@ class DioHelper {
 
   static Future<Response?> postData({
     required String url,
-    // Map<String, dynamic> query,
+    Map<String, dynamic>? query,
     required Map<String, dynamic> data,
     String lang = 'en',
     String? token,
@@ -45,7 +45,7 @@ class DioHelper {
 
     return await dio!.post(
       url,
-      //  queryParameters: query,
+      queryParameters: query,
       data: data,
     );
   }

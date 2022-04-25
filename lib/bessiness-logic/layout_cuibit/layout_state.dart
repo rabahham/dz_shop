@@ -9,3 +9,7 @@ class LayoutShopLoadingHomeDataState extends LayoutShopState {}
 class LayoutShopSuccessHomeDataState extends LayoutShopState {}
 
 class LayoutShopErrorHomeDataState extends LayoutShopState {}
+
+class LayoutShopSuccessCategiesDataState extends LayoutShopState {}
+
+class LayoutShopErrorCategoriesDataState extends LayoutShopState {}

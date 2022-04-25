@@ -18,7 +18,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
   LayoutShopCuibit() : super(LayoutShopInitailState());
   static LayoutShopCuibit get(context) => BlocProvider.of(context);
 
-  late HomeModelAuto homeModelAuto;
+  HomeModelAuto? homeModelAuto;
 
   int currentIndex = 0;
 
@@ -47,8 +47,8 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
       homeModelAuto = HomeModelAuto.fromJson(value.data);
       print('rani f success');
       // print(homeModel!.data!.banners![0].image);
-      print(homeModelAuto.status);
-      print(homeModelAuto.data!.banners![0].image);
+      print(homeModelAuto!.status);
+      print(homeModelAuto!.data!.banners![0].image);
 
       // print(homeModel.toString());
       // print('hhhhhhhhhhhhhhhhhhhhhhhh');
