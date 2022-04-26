@@ -13,3 +13,7 @@ class LayoutShopErrorHomeDataState extends LayoutShopState {}
 class LayoutShopSuccessCategiesDataState extends LayoutShopState {}
 
 class LayoutShopErrorCategoriesDataState extends LayoutShopState {}
+
+class LayoutShopSuccessChangeFavoritessDataState extends LayoutShopState {}
+
+class LayoutShopErrorChangeFavoritesDataState extends LayoutShopState {}

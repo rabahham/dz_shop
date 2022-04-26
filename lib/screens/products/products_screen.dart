@@ -20,8 +20,8 @@ class ProductsScreen extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return modelsHome != null && modelsCetegories != null
-            ? homeProuductsBuilder(modelsHome, modelsCetegories)
+        return modelsCetegories != null && modelsHome != null
+            ? homeProuductsBuilder(modelsHome, modelsCetegories, context)
             : Center(
                 child: CircularProgressIndicator(),
               );
@@ -30,7 +30,7 @@ class ProductsScreen extends StatelessWidget {
   }
 
   Widget homeProuductsBuilder(
-          HomeModelAuto model, CategoriesModel categories) =>
+          HomeModelAuto model, CategoriesModel categories, context) =>
       SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -109,8 +109,10 @@ class ProductsScreen extends StatelessWidget {
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
                 childAspectRatio: 1 / 1.55,
-                children: List.generate(model.data!.products!.length,
-                    (index) => buildGridProduct(model.data!.products![index])),
+                children: List.generate(
+                    model.data!.products!.length,
+                    (index) => buildGridProduct(
+                        model.data!.products![index], context)),
               ),
             )
           ],
@@ -149,7 +151,7 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildGridProduct(Products model) => Container(
+  Widget buildGridProduct(Products model, context) => Container(
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,12 +217,18 @@ class ProductsScreen extends StatelessWidget {
                         ),
                       Spacer(),
                       IconButton(
-                          // padding: EdgeInsets.zero,
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_border,
-                            // size: 12.0,
-                          ))
+                        onPressed: () {
+                          LayoutShopCuibit.get(context)
+                              .changeFavorites(model.id!);
+                          print('chagale');
+                        },
+                        icon: LayoutShopCuibit.get(context).favorites[model.id]!
+                            ? Icon(
+                                Icons.favorite_sharp,
+                                color: Colors.red,
+                              )
+                            : Icon(Icons.favorite_border),
+                      ),
                     ],
                   ),
                 ],

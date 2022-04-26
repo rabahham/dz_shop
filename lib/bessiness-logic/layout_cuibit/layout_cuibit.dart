@@ -2,6 +2,7 @@
 
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
 import 'package:dz_shop/models/shopappmodels/categories_model.dart';
+import 'package:dz_shop/models/shopappmodels/change_favorites_model.dart';
 import 'package:dz_shop/models/shopappmodels/home_models.dart';
 import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
 import 'package:dz_shop/screens/cateogries/cateogrie_screen.dart';
@@ -33,6 +34,8 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     emit(LayoutShopChangeBottmNavState());
   }
 
+  Map<int, bool> favorites = {};
+
   HomeModelAuto? homeModelAuto;
 
   void getHomeData() {
@@ -42,11 +45,17 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
       url: HOME,
       token: token,
     ).then((value) {
-      print(value.data.toString());
-      print('secseeeeeeeeee');
+      // print(value.data.toString());
+      // print('secseeeeeeeeee');
 
       homeModelAuto = HomeModelAuto.fromJson(value.data);
-      print('rani f success');
+      homeModelAuto!.data!.products!.forEach((element) {
+        favorites.addAll({
+          element.id!: element.inFavorites!,
+        });
+      });
+      // print(favorites.toString());
+      // print('rani f success');
 
       emit(LayoutShopSuccessHomeDataState());
     }).catchError((error) {
@@ -61,16 +70,41 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     DioHelper.getData(
       url: GET_CATEGORIES,
     ).then((value) {
-      print(value.data.toString());
-      print('secseeeeeeeeee cetegories');
+      // print(value.data.toString());
+      // print('secseeeeeeeeee cetegories');
 
       categoriesModel = CategoriesModel.fromJson(value.data);
-      print('rani f success cetegor');
+      // print('rani f success cetegor');
 
       emit(LayoutShopSuccessCategiesDataState());
     }).catchError((error) {
       print(error.toString());
       emit(LayoutShopErrorCategoriesDataState());
+    });
+  }
+
+  ChangeFavoritesModel? changeFavoritesModel;
+
+  void changeFavorites(int productId) {
+    favorites[productId] = !favorites[productId]!; // for change mode favorites
+    emit(LayoutShopSuccessChangeFavoritessDataState()); // for rebuiled
+    DioHelper.postData(
+      url: FAVORITES,
+      data: {
+        'product_id': productId,
+      },
+      token: token,
+    ).then((value) {
+      changeFavoritesModel = ChangeFavoritesModel.fromJson(value!.data);
+      print(value.data);
+      if (!changeFavoritesModel!.status!)
+        favorites[productId] =
+            !favorites[productId]!; // If something goes wrong,
+      emit(LayoutShopSuccessChangeFavoritessDataState());
+    }).catchError((errror) {
+      favorites[productId] = !favorites[
+          productId]!; // If something goes wrong, it goes back to its origin
+      emit(LayoutShopErrorChangeFavoritesDataState());
     });
   }
 }
