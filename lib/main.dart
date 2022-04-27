@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => LayoutShopCuibit()
             ..getHomeData()
-            ..getCategoriesData(),
+            ..getCategoriesData()
+            ..GetFavoritData(),
         ),
       ],
       child: MaterialApp(

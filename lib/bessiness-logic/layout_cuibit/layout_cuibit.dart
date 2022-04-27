@@ -3,6 +3,7 @@
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
 import 'package:dz_shop/models/shopappmodels/categories_model.dart';
 import 'package:dz_shop/models/shopappmodels/change_favorites_model.dart';
+import 'package:dz_shop/models/shopappmodels/favorites_model.dart';
 import 'package:dz_shop/models/shopappmodels/home_models.dart';
 import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
 import 'package:dz_shop/screens/cateogries/cateogrie_screen.dart';
@@ -97,14 +98,37 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value!.data);
       print(value.data);
-      if (!changeFavoritesModel!.status!)
+      if (!changeFavoritesModel!.status!) {
         favorites[productId] =
             !favorites[productId]!; // If something goes wrong,
+      } else {
+        GetFavoritData();
+      }
+
       emit(LayoutShopSuccessChangeFavoritessDataState());
     }).catchError((errror) {
       favorites[productId] = !favorites[
           productId]!; // If something goes wrong, it goes back to its origin
       emit(LayoutShopErrorChangeFavoritesDataState());
+    });
+  }
+
+  GetFavoritesModel? getFavoritsData;
+
+  void GetFavoritData() {
+    emit(LayoutShopLoadingGetFavoritesDataState());
+    DioHelper.getData(
+      url: FAVORITES,
+      token: token,
+    ).then((value) {
+      getFavoritsData = GetFavoritesModel.fromJson(value.data);
+
+      print('rani f success');
+
+      emit(LayoutShopSuccessGetFavoritesDataState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LayoutShopErrorGetFavoriteDataState());
     });
   }
 }

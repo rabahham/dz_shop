@@ -50,7 +50,7 @@ Widget defultButtonIcon({
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(background!),
           padding: MaterialStateProperty.all<EdgeInsets>(
-              EdgeInsets.fromLTRB(30, 15, 30, 15)),
+              EdgeInsets.fromLTRB(25, 12, 25, 12)),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -60,7 +60,12 @@ Widget defultButtonIcon({
         onPressed: () {
           function();
         },
-        icon: icon,
+        icon: Transform.rotate(
+          // roate
+          angle: 180 * 3.14 / 180,
+
+          child: icon,
+        ),
         label: Text(
           text,
           style: TextStyle(

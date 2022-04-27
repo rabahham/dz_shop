@@ -1,5 +1,6 @@
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
+import 'package:dz_shop/models/shopappmodels/favorites_model.dart';
 import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,18 +14,31 @@ class favoritScreen extends StatelessWidget {
         listener: (context, state) {
       // TODO: implement listener
     }, builder: (context, state) {
-      return ListView.separated(
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) => buildFavoriteItems(),
-          separatorBuilder: (context, index) => Divider(
-                color: Colors.grey,
-                height: 1.0,
-              ),
-          itemCount: 10);
+      return state is! LayoutShopLoadingGetFavoritesDataState
+          ? ListView.separated(
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) => buildFavoriteItems(
+                  LayoutShopCuibit.get(context)
+                      .getFavoritsData!
+                      .data!
+                      .data![index],
+                  context),
+              separatorBuilder: (context, index) => Divider(
+                    color: Colors.grey,
+                    height: 1.0,
+                  ),
+              itemCount: LayoutShopCuibit.get(context)
+                  .getFavoritsData!
+                  .data!
+                  .data!
+                  .length)
+          : Center(
+              child: CircularProgressIndicator(),
+            );
     });
   }
 
-  Widget buildFavoriteItems() => Padding(
+  Widget buildFavoriteItems(DataProdect model, context) => Padding(
         padding: const EdgeInsets.all(20.0),
         child: Container(
           height: 120.0,
@@ -35,12 +49,11 @@ class favoritScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Image(
-                    image: NetworkImage(
-                        'https://student.valuxapps.com/storage/uploads/categories/16445270619najK.6242655.jpg'),
+                    image: NetworkImage(model.product!.image!),
                     fit: BoxFit.cover,
                     height: 120.0,
                   ),
-                  if (1 != 0)
+                  if (model.product!.discount != null)
                     Container(
                       color: Colors.red,
                       padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -51,12 +64,15 @@ class favoritScreen extends StatelessWidget {
                     ),
                 ],
               ),
+              SizedBox(
+                width: 20,
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Phone 5',
+                      '${model.product!.name!}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -69,7 +85,7 @@ class favoritScreen extends StatelessWidget {
                       children: [
                         Text(
                           // '${model.price!.round()}', // .round() convert to int
-                          '2000 ',
+                          '${model.product!.price!.round()} DA',
                           style: TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.bold,
@@ -79,10 +95,10 @@ class favoritScreen extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        if (1 != 0)
+                        if (model.product!.oldPrice! != null)
                           Text(
-                            // '${model.oldPrice!.round()}', // .round() convert to int
-                            '55000 da',
+                            // .round() convert to int
+                            '${model.product!.oldPrice!.round()} DA',
                             style: TextStyle(
                                 fontSize: 10.0,
                                 fontWeight: FontWeight.bold,
@@ -93,12 +109,12 @@ class favoritScreen extends StatelessWidget {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            // LayoutShopCuibit.get(context)
-                            //     .changeFavorites(model.id!);
-                            // print('chagale');
+                            LayoutShopCuibit.get(context)
+                                .changeFavorites(model.product!.id!);
+                            print('chagale');
                           },
-                          icon: true
-                              // LayoutShopCuibit.get(context).favorites[model.id]!
+                          icon: LayoutShopCuibit.get(context)
+                                  .favorites[model.product!.id]!
                               ? Icon(
                                   Icons.favorite_sharp,
                                   color: Colors.red,
