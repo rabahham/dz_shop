@@ -1,5 +1,7 @@
 import 'package:dz_shop/bessiness-logic/login_cubit/login-state.dart';
 import 'package:dz_shop/bessiness-logic/login_cubit/login_cubit.dart';
+import 'package:dz_shop/bessiness-logic/register_cuibit/register-state.dart';
+import 'package:dz_shop/bessiness-logic/register_cuibit/register_cubit.dart';
 import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
 import 'package:dz_shop/screens/login/shop_login_screen.dart';
 import 'package:dz_shop/screens/register/shop_register_screen.dart';
@@ -33,25 +35,26 @@ class ShopRegisterScreen extends StatelessWidget {
     String? errorMessage;
 
     return BlocProvider(
-      create: (context) => ShopLoginCubit(),
-      child: BlocConsumer<ShopLoginCubit, ShopLginState>(
+      create: (context) => ShopRegisterCubit(),
+      child: BlocConsumer<ShopRegisterCubit, ShopRegisterState>(
         listener: (context, state) {
           // TODO: implement listener
-          if (state is ShopLoginSuccessState) {
-            if (state.loginModel.status!) {
-              CacheHelper.saveData(
-                key: 'token',
-                value: state.loginModel.data!.token,
-              ).then((value) {
-                navigatToRomplace(context, ShopLayout());
-              });
-              showToast(
-                  state: ToastStates.success, text: state.loginModel.message!);
-            } else {
-              showToast(
-                  state: ToastStates.error, text: state.loginModel.message!);
-            }
-          }
+          // if (state is ShopLoginSuccessState) {
+          //   if (state.regisetrModel.status!) {
+          //     CacheHelper.saveData(
+          //       key: 'token',
+          //       value: state.regisetrModel.data!.token,
+          //     ).then((value) {
+          //       navigatToRomplace(context, ShopLayout());
+          //     });
+          //     showToast(
+          //         state: ToastStates.success,
+          //         text: state.regisetrModel.message!);
+          //   } else {
+          //     showToast(
+          //         state: ToastStates.error, text: state.regisetrModel.message!);
+          //   }
+          // }
         },
         builder: (context, state) {
           return Scaffold(
@@ -99,7 +102,7 @@ class ShopRegisterScreen extends StatelessWidget {
                       // passwordFielde,
                       passwordField(
                         obscureText:
-                            ShopLoginCubit.get(context).passwordVisible,
+                            ShopRegisterCubit.get(context).passwordVisible,
                         controller: passwordController,
                         hintText: 'Password',
                         prefixIconicon: Icon(Icons.vpn_key),
@@ -107,13 +110,14 @@ class ShopRegisterScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             print(emailController.text);
                             print(passwordController.text);
-                            ShopLoginCubit.get(context).userLogin(
+                            ShopRegisterCubit.get(context).userRegister(
                                 email: emailController.text,
-                                password: passwordController.text);
+                                password: passwordController.text,
+                                name: nameController.text);
                           }
                         },
                         function: () {
-                          ShopLoginCubit.get(context).passWordVisible();
+                          ShopRegisterCubit.get(context).passWordVisible();
                           // setState(() {
                           //   passwordVisible = !passwordVisible;
                           // });
@@ -127,16 +131,17 @@ class ShopRegisterScreen extends StatelessWidget {
                       // button login
                       (state is! ShopLoginLoadingState)
                           ? defultButton(
-                              text: 'Sig In',
+                              text: 'Sign up',
                               function: () {
                                 // _formKey.currentState!.validate();
                                 // signIn(emailController.text, passwordController.text);
                                 if (_formKey.currentState!.validate()) {
                                   // print(emailController.text);
                                   // print(passwordController.text);
-                                  ShopLoginCubit.get(context).userLogin(
+                                  ShopRegisterCubit.get(context).userRegister(
                                       email: emailController.text,
-                                      password: passwordController.text);
+                                      password: passwordController.text,
+                                      name: nameController.text);
                                 }
                               },
                               background: defaultColor,
@@ -152,7 +157,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Crée un compte? ",
+                              "Are you want to signIn? ",
                               style: TextStyle(
                                   //  color: defaultColor.withOpacity(0.7),
                                   // fontWeight: FontWeight.bold,

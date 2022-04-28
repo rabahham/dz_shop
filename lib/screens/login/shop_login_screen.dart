@@ -137,7 +137,7 @@ class ShopLoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Crée un compte? ",
+                              "Doun't have an account? ",
                               style: TextStyle(
                                   //  color: defaultColor.withOpacity(0.7),
                                   // fontWeight: FontWeight.bold,

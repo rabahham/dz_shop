@@ -63,7 +63,8 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => LayoutShopCuibit()
             ..getHomeData()
             ..getCategoriesData()
-            ..GetFavoritData(),
+            ..GetFavoritData()
+            ..GetUserData(),
         ),
       ],
       child: MaterialApp(

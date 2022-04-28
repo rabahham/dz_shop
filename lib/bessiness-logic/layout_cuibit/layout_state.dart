@@ -33,3 +33,17 @@ class LayoutShopLoadingGetFavoritesDataState extends LayoutShopState {}
 class LayoutShopSuccessGetFavoritesDataState extends LayoutShopState {}
 
 class LayoutShopErrorGetFavoriteDataState extends LayoutShopState {}
+
+// GET PROFILE
+
+class LayoutShopLoadingGetProfileDataState extends LayoutShopState {}
+
+class LayoutShopSuccessGetProfileDataState extends LayoutShopState {}
+
+class LayoutShopErrorGetProfileDataState extends LayoutShopState {}
+
+// pick PHOTO
+
+class LayoutShopSuccessPickPhotoState extends LayoutShopState {}
+
+class LayoutShopErrorPickPhotoPState extends LayoutShopState {}

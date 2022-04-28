@@ -1,11 +1,15 @@
 // import 'dart:html';
 
+import 'dart:io';
+import 'dart:async';
+
 import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
 import 'package:dz_shop/models/shopappmodels/categories_model.dart';
 import 'package:dz_shop/models/shopappmodels/change_favorites_model.dart';
 import 'package:dz_shop/models/shopappmodels/favorites_model.dart';
 import 'package:dz_shop/models/shopappmodels/home_models.dart';
 import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
+import 'package:dz_shop/models/shopappmodels/shop_model.dart';
 import 'package:dz_shop/screens/cateogries/cateogrie_screen.dart';
 import 'package:dz_shop/screens/favorites/favorit_screen.dart';
 import 'package:dz_shop/screens/products/products_screen.dart';
@@ -14,8 +18,10 @@ import 'package:dz_shop/screens/settings/settings_screen.dart';
 import 'package:dz_shop/shered/network/end_points.dart';
 import 'package:dz_shop/shered/network/remote/dio_helper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dz_shop/shered/components/constants.dart';
+import 'package:image_picker/image_picker.dart';
 
 class LayoutShopCuibit extends Cubit<LayoutShopState> {
   LayoutShopCuibit() : super(LayoutShopInitailState());
@@ -129,6 +135,63 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     }).catchError((error) {
       print(error.toString());
       emit(LayoutShopErrorGetFavoriteDataState());
+    });
+  }
+
+  // get data profile
+  ShopLoginModel? getUserData;
+
+  void GetUserData() {
+    emit(LayoutShopLoadingGetProfileDataState());
+
+    DioHelper.getData(
+      url: GETPROFILE,
+      token: token,
+    ).then((value) {
+      getUserData = ShopLoginModel.fromJson(value.data);
+
+      emit(LayoutShopSuccessGetProfileDataState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LayoutShopErrorGetProfileDataState());
+    });
+  }
+
+  File? file; // for photo de profile
+
+  // function get camera photo profile
+
+  // Future pickercameraprofile(ImageSource source) async {
+  //   try {
+  //     final mygfile = await ImagePicker().pickImage(source: source);
+  //     if (mygfile == null) {
+  //       return;
+  //     }
+
+  //     //final imageTemp = File(mygfile.path);
+  //     file = File(mygfile.path);
+
+  //     // ignore:
+  //     // nullable_type_in_catch_clause;
+
+  //     emit(LayoutShopSuccessPickPhotoState());
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //     // emit(LayoutShopErrorPickPhotoPState());
+  //   }
+  // }
+
+  void apickercameraprofile(ImageSource s) {
+    ImagePicker().pickImage(source: s).then((value) {
+      if (value == null) {
+        return;
+      }
+      file = File(value.path);
+
+      emit(LayoutShopSuccessPickPhotoState());
+    }).catchError((e) {
+      print('Failed to pick image: $e');
+      emit(LayoutShopErrorPickPhotoPState());
     });
   }
 }
