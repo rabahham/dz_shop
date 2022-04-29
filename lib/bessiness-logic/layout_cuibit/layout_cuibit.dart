@@ -187,6 +187,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
         return;
       }
       file = File(value.path);
+      print(value.name.toString());
 
       emit(LayoutShopSuccessPickPhotoState());
     }).catchError((e) {

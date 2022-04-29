@@ -39,22 +39,22 @@ class ShopRegisterScreen extends StatelessWidget {
       child: BlocConsumer<ShopRegisterCubit, ShopRegisterState>(
         listener: (context, state) {
           // TODO: implement listener
-          // if (state is ShopLoginSuccessState) {
-          //   if (state.regisetrModel.status!) {
-          //     CacheHelper.saveData(
-          //       key: 'token',
-          //       value: state.regisetrModel.data!.token,
-          //     ).then((value) {
-          //       navigatToRomplace(context, ShopLayout());
-          //     });
-          //     showToast(
-          //         state: ToastStates.success,
-          //         text: state.regisetrModel.message!);
-          //   } else {
-          //     showToast(
-          //         state: ToastStates.error, text: state.regisetrModel.message!);
-          //   }
-          // }
+          if (state is ShopRegisterSuccessState) {
+            if (state.regisetrModel.status!) {
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.regisetrModel.data!.token,
+              ).then((value) {
+                navigatToRomplace(context, ShopLayout());
+              });
+              showToast(
+                  state: ToastStates.success,
+                  text: state.regisetrModel.message!);
+            } else {
+              showToast(
+                  state: ToastStates.error, text: state.regisetrModel.message!);
+            }
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -74,7 +74,7 @@ class ShopRegisterScreen extends StatelessWidget {
                         height: 20,
                       ),
                       // Name
-                      emailField(
+                      textdField(
                         controller: nameController,
                         hintText: 'Name',
                         prefixIconicon: Icon(Icons.person),
@@ -83,7 +83,7 @@ class ShopRegisterScreen extends StatelessWidget {
                         height: 20,
                       ),
                       // Phone
-                      emailField(
+                      textdField(
                         controller: phoneController,
                         hintText: 'Phone',
                         prefixIconicon: Icon(Icons.phone),
@@ -112,6 +112,7 @@ class ShopRegisterScreen extends StatelessWidget {
                             print(passwordController.text);
                             ShopRegisterCubit.get(context).userRegister(
                                 email: emailController.text,
+                                phone: phoneController.text,
                                 password: passwordController.text,
                                 name: nameController.text);
                           }
@@ -129,7 +130,7 @@ class ShopRegisterScreen extends StatelessWidget {
                       ),
 
                       // button login
-                      (state is! ShopLoginLoadingState)
+                      (state is! ShopRegisterSuccessState)
                           ? defultButton(
                               text: 'Sign up',
                               function: () {
@@ -140,6 +141,7 @@ class ShopRegisterScreen extends StatelessWidget {
                                   // print(passwordController.text);
                                   ShopRegisterCubit.get(context).userRegister(
                                       email: emailController.text,
+                                      phone: phoneController.text,
                                       password: passwordController.text,
                                       name: nameController.text);
                                 }

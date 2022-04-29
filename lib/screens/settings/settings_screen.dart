@@ -69,12 +69,19 @@ class settingsScreen extends StatelessWidget {
                                       ),
                                     ),
                                     child: ClipOval(
-                                      child: Image.network(
-                                        photoDeProfile,
-                                        width: 170,
-                                        height: 170,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: cuibtLayout.file != null
+                                          ? Image.file(
+                                              cuibtLayout.file!,
+                                              width: 170,
+                                              height: 170,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.network(
+                                              photoDeProfile,
+                                              width: 170,
+                                              height: 170,
+                                              fit: BoxFit.cover,
+                                            ),
                                     ),
                                   ),
                                   Positioned(

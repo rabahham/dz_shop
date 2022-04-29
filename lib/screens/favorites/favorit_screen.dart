@@ -52,6 +52,7 @@ class favoritScreen extends StatelessWidget {
                     image: NetworkImage(model.product!.image!),
                     fit: BoxFit.cover,
                     height: 120.0,
+                    width: 120,
                   ),
                   if (model.product!.discount != null)
                     Container(

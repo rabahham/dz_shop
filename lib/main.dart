@@ -18,25 +18,28 @@ void main() async {
 
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
-  // CacheHelper.removeData(key: 'token');
+  // RCacheHelper.removeData(key: 'token');
+  bool onBoarding;
 
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  token = CacheHelper.getData(key: 'token');
-  // onBoarding == false;
+  onBoarding = CacheHelper.getData(key: 'onBoarding');
+  if (CacheHelper.getData(key: 'token') != null && token != "hi") {
+    token = CacheHelper.getData(key: 'token');
+  }
+  // onBoarding = false;
   print('rani f main');
   print(onBoarding);
   print(token);
 
   Widget widget;
 
-  if (onBoarding != null) {
-    if (token != null) {
+  if (onBoarding == true) {
+    if (token != null && token != "hi") {
       widget = ShopLayout();
     } else {
       widget = ShopLoginScreen();
     }
   } else {
-    widget = ShopLoginScreen();
+    widget = OnBordingScreen();
   }
 
   runApp(MyApp(
@@ -74,7 +77,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         title: 'DzShop',
         home: staretWidget,
-        // home: OnBordingScreen(),
+        //  home: OnBordingScreen(),
       ),
     );
   }
