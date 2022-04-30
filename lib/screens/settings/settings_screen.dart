@@ -142,6 +142,17 @@ class settingsScreen extends StatelessWidget {
                             SizedBox(
                               height: 30,
                             ),
+
+                            // nameFielde,
+                            textdField(
+                              controller: nameController,
+                              hintText: 'Name',
+                              prefixIconicon: Icon(Icons.person),
+                            ),
+
+                            SizedBox(
+                              height: 20,
+                            ),
                             // Email
                             emailField(
                               controller: emailController,
@@ -150,25 +161,24 @@ class settingsScreen extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            // passwordFielde,
-                            emailField(
-                              controller: nameController,
-                              hintText: 'Name',
+
+                            textdField(
+                              controller: phoneController,
+                              hintText: 'Phone',
+                              keyboardType: TextInputType.phone,
+                              prefixIconicon: Icon(Icons.phone),
                             ),
 
                             SizedBox(
                               height: 20,
                             ),
 
-                            emailField(
-                              controller: phoneController,
-                              hintText: 'Phone',
-                            ),
-
+                            if (state
+                                is LayoutShopLoadingUpDateProfileDataState)
+                              LinearProgressIndicator(),
                             SizedBox(
-                              height: 50,
+                              height: 30,
                             ),
-
                             // button login
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -195,7 +205,18 @@ class settingsScreen extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   text: 'Up Date',
-                                  function: () {},
+                                  function: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      cuibtLayout.UpDateUserData(
+                                        name: nameController.text,
+                                        phone: phoneController.text,
+                                        email: emailController.text,
+                                        image: cuibtLayout.file != null
+                                            ? cuibtLayout.file!.path
+                                            : photoDeProfile,
+                                      );
+                                    }
+                                  },
                                   background: Colors.orangeAccent,
                                 ),
                               ],

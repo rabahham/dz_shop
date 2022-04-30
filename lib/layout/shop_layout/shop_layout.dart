@@ -4,6 +4,7 @@ import 'package:dz_shop/screens/login/shop_login_screen.dart';
 import 'package:dz_shop/screens/search/search_screen.dart';
 import 'package:dz_shop/shered/components/components.dart';
 import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
+import 'package:dz_shop/shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +51,7 @@ class ShopLayout extends StatelessWidget {
                   label: 'Settings',
                 ),
               ],
+              selectedItemColor: defaultColor,
             ),
           );
         },

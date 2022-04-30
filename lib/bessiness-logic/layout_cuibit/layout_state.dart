@@ -47,3 +47,11 @@ class LayoutShopErrorGetProfileDataState extends LayoutShopState {}
 class LayoutShopSuccessPickPhotoState extends LayoutShopState {}
 
 class LayoutShopErrorPickPhotoPState extends LayoutShopState {}
+
+// UP PROFILE
+
+class LayoutShopLoadingUpDateProfileDataState extends LayoutShopState {}
+
+class LayoutShopSuccessUpDateProfileDataState extends LayoutShopState {}
+
+class LayoutShopErrorUpDateProfileDataState extends LayoutShopState {}

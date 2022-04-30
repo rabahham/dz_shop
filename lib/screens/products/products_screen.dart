@@ -220,7 +220,7 @@ class ProductsScreen extends StatelessWidget {
                         onPressed: () {
                           LayoutShopCuibit.get(context)
                               .changeFavorites(model.id!);
-                          print('chagale');
+                          // print('chagale');
                         },
                         icon: LayoutShopCuibit.get(context).favorites[model.id]!
                             ? Icon(

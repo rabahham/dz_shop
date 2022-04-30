@@ -161,38 +161,45 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
 
   // function get camera photo profile
 
-  // Future pickercameraprofile(ImageSource source) async {
-  //   try {
-  //     final mygfile = await ImagePicker().pickImage(source: source);
-  //     if (mygfile == null) {
-  //       return;
-  //     }
-
-  //     //final imageTemp = File(mygfile.path);
-  //     file = File(mygfile.path);
-
-  //     // ignore:
-  //     // nullable_type_in_catch_clause;
-
-  //     emit(LayoutShopSuccessPickPhotoState());
-  //   } on PlatformException catch (e) {
-  //     print('Failed to pick image: $e');
-  //     // emit(LayoutShopErrorPickPhotoPState());
-  //   }
-  // }
-
-  void apickercameraprofile(ImageSource s) {
-    ImagePicker().pickImage(source: s).then((value) {
+  void apickercameraprofile(ImageSource source) {
+    ImagePicker().pickImage(source: source).then((value) {
       if (value == null) {
         return;
       }
       file = File(value.path);
-      print(value.name.toString());
+      print(value.path.toString());
 
       emit(LayoutShopSuccessPickPhotoState());
     }).catchError((e) {
       print('Failed to pick image: $e');
       emit(LayoutShopErrorPickPhotoPState());
+    });
+  }
+
+  void UpDateUserData({
+    required String name,
+    required String phone,
+    required String email,
+    required String image,
+  }) {
+    emit(LayoutShopLoadingUpDateProfileDataState());
+
+    DioHelper.putData(
+      url: UP_DATE_PROFILE,
+      data: {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'image': image,
+      },
+      token: token,
+    ).then((value) {
+      getUserData = ShopLoginModel.fromJson(value!.data);
+
+      emit(LayoutShopSuccessUpDateProfileDataState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LayoutShopErrorUpDateProfileDataState());
     });
   }
 }
