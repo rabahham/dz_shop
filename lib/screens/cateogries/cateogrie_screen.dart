@@ -1,6 +1,6 @@
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
-import 'package:dz_shop/models/shopappmodels/categories_model.dart';
+import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import '../../bessiness-logic/layout_cuibit/layout_state.dart';
+import '../../models/shopappmodels/categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

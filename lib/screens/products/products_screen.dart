@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
-import 'package:dz_shop/models/shopappmodels/categories_model.dart';
-import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
-import 'package:dz_shop/shered/styles/colors.dart';
+import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import '../../bessiness-logic/layout_cuibit/layout_state.dart';
+import '../../models/shopappmodels/categories_model.dart';
+import '../../models/shopappmodels/homr_model_auto.dart';
+import '../../shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

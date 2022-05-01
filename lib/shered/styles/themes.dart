@@ -1,4 +1,4 @@
-import 'package:dz_shop/shered/styles/colors.dart';
+import 'colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';

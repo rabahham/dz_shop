@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'dart:io';
 import 'dart:async';
 
@@ -52,17 +50,12 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
       url: HOME,
       token: token,
     ).then((value) {
-      // print(value.data.toString());
-      // print('secseeeeeeeeee');
-
       homeModelAuto = HomeModelAuto.fromJson(value.data);
       homeModelAuto!.data!.products!.forEach((element) {
         favorites.addAll({
           element.id!: element.inFavorites!,
         });
       });
-      // print(favorites.toString());
-      // print('rani f success');
 
       emit(LayoutShopSuccessHomeDataState());
     }).catchError((error) {
@@ -77,11 +70,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     DioHelper.getData(
       url: GET_CATEGORIES,
     ).then((value) {
-      // print(value.data.toString());
-      // print('secseeeeeeeeee cetegories');
-
       categoriesModel = CategoriesModel.fromJson(value.data);
-      // print('rani f success cetegor');
 
       emit(LayoutShopSuccessCategiesDataState());
     }).catchError((error) {
@@ -103,7 +92,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
       token: token,
     ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value!.data);
-      print(value.data);
+
       if (!changeFavoritesModel!.status!) {
         favorites[productId] =
             !favorites[productId]!; // If something goes wrong,
@@ -128,8 +117,6 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
       token: token,
     ).then((value) {
       getFavoritsData = GetFavoritesModel.fromJson(value.data);
-
-      print('rani f success');
 
       emit(LayoutShopSuccessGetFavoritesDataState());
     }).catchError((error) {
@@ -167,7 +154,6 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
         return;
       }
       file = File(value.path);
-      print(value.path.toString());
 
       emit(LayoutShopSuccessPickPhotoState());
     }).catchError((e) {

@@ -1,7 +1,7 @@
-import 'package:dz_shop/screens/login/shop_login_screen.dart';
-import 'package:dz_shop/shered/components/components.dart';
-import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
-import 'package:dz_shop/shered/styles/colors.dart';
+import '../login/shop_login_screen.dart';
+import '../../shered/components/components.dart';
+import '../../shered/network/local/chach_hlepr.dart';
+import '../../shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

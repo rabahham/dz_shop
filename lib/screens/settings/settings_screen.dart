@@ -1,8 +1,8 @@
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
-import 'package:dz_shop/shered/components/components.dart';
-import 'package:dz_shop/shered/components/constants.dart';
-import 'package:dz_shop/shered/styles/colors.dart';
+import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import '../../bessiness-logic/layout_cuibit/layout_state.dart';
+import '../../shered/components/components.dart';
+import '../../shered/components/constants.dart';
+import '../../shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +77,7 @@ class settingsScreen extends StatelessWidget {
                                               fit: BoxFit.cover,
                                             )
                                           : Image.network(
-                                              photoDeProfile,
+                                              "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
                                               width: 170,
                                               height: 170,
                                               fit: BoxFit.cover,

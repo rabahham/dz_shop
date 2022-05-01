@@ -1,3 +1,5 @@
+import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import '../styles/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:io';
@@ -122,6 +124,8 @@ Widget passwordField({
 Widget textdField({
   required TextEditingController controller,
   required String hintText,
+  var onSubmit,
+  var onchange,
   TextInputType keyboardType = TextInputType.text,
   bool autofocus = false,
   required Icon prefixIconicon,
@@ -144,6 +148,8 @@ Widget textdField({
           controller.text = value!;
         },
         textInputAction: TextInputAction.done,
+        onFieldSubmitted: onSubmit,
+        onChanged: onchange,
         decoration: InputDecoration(
           prefixIcon: prefixIconicon,
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -283,3 +289,103 @@ Color chooseToastColor(ToastStates state) {
   }
   return color;
 }
+
+Widget buildLisetProdect(
+  model,
+  context, {
+  bool isOledPrice = true,
+}) =>
+    Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 120.0,
+        // color: Colors.white,
+        child: Row(
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                Image(
+                  image: NetworkImage(model.image!),
+                  fit: BoxFit.cover,
+                  height: 120.0,
+                  width: 120,
+                ),
+                if (isOledPrice)
+                  if (model.discount != null && isOledPrice)
+                    Container(
+                      color: Colors.red,
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text(
+                        'DISCOUNT',
+                        style: TextStyle(fontSize: 10.0, color: Colors.white),
+                      ),
+                    ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${model.name!}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        // height: 1.3,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Text(
+                        // '${model.price!.round()}', // .round() convert to int
+                        '£ ${model.price!.round()} ',
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                defaultColor), // height in oreder to approximate the writing
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      if (isOledPrice)
+                        if (model.discount! != null && isOledPrice)
+                          Text(
+                            // .round() convert to int
+                            '£ ${model.oldPrice!.round()} ',
+                            style: TextStyle(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                decoration: TextDecoration
+                                    .lineThrough), // height in oreder to approximate the writing
+                          ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          LayoutShopCuibit.get(context)
+                              .changeFavorites(model.id!);
+                          print('chagale');
+                        },
+                        icon: LayoutShopCuibit.get(context).favorites[model.id]!
+                            ? Icon(
+                                Icons.favorite_sharp,
+                                color: Colors.red,
+                              )
+                            : Icon(Icons.favorite_border),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );

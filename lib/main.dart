@@ -1,15 +1,15 @@
 import 'package:bloc/bloc.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
-import 'package:dz_shop/shered/components/constants.dart';
+import 'bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import 'shered/components/constants.dart';
 import 'package:flutter/material.dart';
 
-import 'package:dz_shop/layout/shop_layout/shop_layout.dart';
-import 'package:dz_shop/screens/login/shop_login_screen.dart';
-import 'package:dz_shop/screens/on_bording/on_bording.dart';
-import 'package:dz_shop/shered/bloc_observer.dart';
-import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
-import 'package:dz_shop/shered/network/remote/dio_helper.dart';
-import 'package:dz_shop/shered/styles/themes.dart';
+import 'layout/shop_layout/shop_layout.dart';
+import 'screens/login/shop_login_screen.dart';
+import 'screens/on_bording/on_bording.dart';
+import 'shered/bloc_observer.dart';
+import 'shered/network/local/chach_hlepr.dart';
+import 'shered/network/remote/dio_helper.dart';
+import 'shered/styles/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
@@ -22,13 +22,10 @@ void main() async {
   bool onBoarding;
 
   onBoarding = CacheHelper.getData(key: 'onBoarding');
-  if (CacheHelper.getData(key: 'token') != null && token != "hi") {
+  if (CacheHelper.getData(key: 'token') != null) {
     token = CacheHelper.getData(key: 'token');
   }
-  // onBoarding = false;
-  print('rani f main');
-  print(onBoarding);
-  print(token);
+  //onBoarding = false;
 
   Widget widget;
 

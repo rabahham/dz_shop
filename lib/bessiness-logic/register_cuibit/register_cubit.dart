@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:dz_shop/bessiness-logic/login_cubit/login-state.dart';
-import 'package:dz_shop/bessiness-logic/register_cuibit/register-state.dart';
-import 'package:dz_shop/models/shopappmodels/shop_model.dart';
-import 'package:dz_shop/shered/components/constants.dart';
-import 'package:dz_shop/shered/network/end_points.dart';
-import 'package:dz_shop/shered/network/remote/dio_helper.dart';
+import '../login_cubit/login-state.dart';
+import 'register-state.dart';
+import '../../models/shopappmodels/shop_model.dart';
+import '../../shered/components/constants.dart';
+import '../../shered/network/end_points.dart';
+import '../../shered/network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopRegisterCubit extends Cubit<ShopRegisterState> {
@@ -31,12 +31,9 @@ class ShopRegisterCubit extends Cubit<ShopRegisterState> {
       },
     ).then((value) {
       // ignore: avoid_print
-      print(value!.data.toString());
-      regisetrModel = ShopLoginModel.fromJson(value.data);
-      token = regisetrModel.data!.token!;
 
-      // print(loginModel.status);
-      // print(loginModel.data?.token);
+      regisetrModel = ShopLoginModel.fromJson(value!.data);
+      token = regisetrModel.data!.token!;
       emit(ShopRegisterSuccessState(regisetrModel: regisetrModel));
     }).catchError((error) {
       print(error.toString());

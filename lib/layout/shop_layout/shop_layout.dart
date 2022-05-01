@@ -1,12 +1,13 @@
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_cuibit.dart';
-import 'package:dz_shop/bessiness-logic/layout_cuibit/layout_state.dart';
-import 'package:dz_shop/screens/login/shop_login_screen.dart';
-import 'package:dz_shop/screens/search/search_screen.dart';
-import 'package:dz_shop/shered/components/components.dart';
-import 'package:dz_shop/shered/network/local/chach_hlepr.dart';
-import 'package:dz_shop/shered/styles/colors.dart';
+import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
+import '../../bessiness-logic/layout_cuibit/layout_state.dart';
+import '../../screens/login/shop_login_screen.dart';
+import '../../screens/search/search_screen.dart';
+import '../../shered/components/components.dart';
+import '../../shered/network/local/chach_hlepr.dart';
+import '../../shered/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 class ShopLayout extends StatelessWidget {
   const ShopLayout({Key? key}) : super(key: key);
@@ -27,7 +28,41 @@ class ShopLayout extends StatelessWidget {
                     icon: Icon(Icons.search))
               ],
             ),
-            body: cuibt.bottomScreens[cuibt.currentIndex],
+            body: OfflineBuilder(
+              connectivityBuilder: (
+                BuildContext context,
+                ConnectivityResult connectivity,
+                Widget child,
+              ) {
+                final bool connected = connectivity != ConnectivityResult.none;
+                if (connected) {
+                  return cuibt.bottomScreens[cuibt.currentIndex];
+                } else {
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Image.asset('assets/images/ofline.png'),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          'Can\'t connect ..  check internet!!!!',
+                          style: TextStyle(fontSize: 22, color: defaultColor),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: defaultColor,
+                ),
+              ),
+            ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {
                 cuibt.changeBottom(index);

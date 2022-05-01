@@ -1,4 +1,4 @@
-import 'package:dz_shop/models/shopappmodels/shop_model.dart';
+import '../../models/shopappmodels/shop_model.dart';
 
 abstract class ShopLginState {}
 
