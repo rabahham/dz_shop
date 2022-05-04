@@ -38,12 +38,13 @@ Widget defultButton({
     );
 
 Widget defultButtonIcon({
-  required String text,
-  required Function function,
+  required String? text,
+  required Function? function,
   required Icon icon,
   double borderRadius = 30,
   Color? background,
   Color colorText = Colors.white,
+  bool opositeIcon = true,
 }) =>
     Container(
       alignment: Alignment.center,
@@ -60,16 +61,18 @@ Widget defultButtonIcon({
           ),
         ),
         onPressed: () {
-          function();
+          function!();
         },
-        icon: Transform.rotate(
-          // roate
-          angle: 180 * 3.14 / 180,
+        icon: opositeIcon
+            ? Transform.rotate(
+                // roate
+                angle: 180 * 3.14 / 180,
 
-          child: icon,
-        ),
+                child: icon,
+              )
+            : icon,
         label: Text(
-          text,
+          text!,
           style: TextStyle(
               fontSize: 20, color: colorText, fontWeight: FontWeight.bold),
         ),
@@ -373,12 +376,14 @@ Widget buildLisetProdect(
                               .changeFavorites(model.id!);
                           print('chagale');
                         },
-                        icon: LayoutShopCuibit.get(context).favorites[model.id]!
-                            ? Icon(
-                                Icons.favorite_sharp,
-                                color: Colors.red,
-                              )
-                            : Icon(Icons.favorite_border),
+                        icon:
+                            LayoutShopCuibit.get(context).favorites[model.id] ??
+                                    false
+                                ? Icon(
+                                    Icons.favorite_sharp,
+                                    color: Colors.red,
+                                  )
+                                : Icon(Icons.favorite_border),
                       ),
                     ],
                   ),

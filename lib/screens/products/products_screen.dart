@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dz_shop/screens/products/afich_products.dart';
+import 'package:dz_shop/shered/components/components.dart';
 import '../../bessiness-logic/layout_cuibit/layout_cuibit.dart';
 import '../../bessiness-logic/layout_cuibit/layout_state.dart';
 import '../../models/shopappmodels/categories_model.dart';
@@ -151,90 +153,100 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildGridProduct(Products model, context) => Container(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.bottomStart,
-              children: [
-                Image(
-                  image: NetworkImage(model.image!),
-                  width: double.infinity,
-                  // fit: BoxFit.cover,
-                  height: 200,
-                ),
-                if (model.discount != 0)
-                  Container(
-                    color: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'DISCOUNT',
-                      style: TextStyle(fontSize: 10.0, color: Colors.white),
-                    ),
-                  ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+  Widget buildGridProduct(Products model, context) => InkWell(
+        onTap: () {
+          navigatTo(
+              context,
+              afichProduct(
+                model: model,
+              ));
+        },
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Text(
-                    model.name!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        // height: 1.3,
-                        fontWeight: FontWeight.bold),
+                  Image(
+                    image: NetworkImage(model.image!),
+                    width: double.infinity,
+                    // fit: BoxFit.cover,
+                    height: 200,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '${model.price!.round()}', // .round() convert to int
-
-                        style: TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold,
-                            color:
-                                defaultColor), // height in oreder to approximate the writing
+                  if (model.discount != 0)
+                    Container(
+                      color: Colors.red,
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text(
+                        'DISCOUNT',
+                        style: TextStyle(fontSize: 10.0, color: Colors.white),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      if (model.discount != 0)
-                        Text(
-                          '${model.oldPrice!.round()}', // .round() convert to int
-
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              decoration: TextDecoration
-                                  .lineThrough), // height in oreder to approximate the writing
-                        ),
-                      Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          LayoutShopCuibit.get(context)
-                              .changeFavorites(model.id!);
-                          // print('chagale');
-                        },
-                        icon: LayoutShopCuibit.get(context).favorites[model.id]!
-                            ? Icon(
-                                Icons.favorite_sharp,
-                                color: Colors.red,
-                              )
-                            : Icon(Icons.favorite_border),
-                      ),
-                    ],
-                  ),
+                    ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      model.name!,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          // height: 1.3,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '${model.price!.round()}', // .round() convert to int
+
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  defaultColor), // height in oreder to approximate the writing
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        if (model.discount != 0)
+                          Text(
+                            '${model.oldPrice!.round()}', // .round() convert to int
+
+                            style: TextStyle(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                decoration: TextDecoration
+                                    .lineThrough), // height in oreder to approximate the writing
+                          ),
+                        Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            LayoutShopCuibit.get(context)
+                                .changeFavorites(model.id!);
+                            // print('chagale');
+                          },
+                          icon:
+                              LayoutShopCuibit.get(context).favorites[model.id]!
+                                  ? Icon(
+                                      Icons.favorite_sharp,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(Icons.favorite_border),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }

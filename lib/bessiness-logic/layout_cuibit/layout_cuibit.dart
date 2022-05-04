@@ -10,6 +10,7 @@ import 'package:dz_shop/models/shopappmodels/homr_model_auto.dart';
 import 'package:dz_shop/models/shopappmodels/shop_model.dart';
 import 'package:dz_shop/screens/cateogries/cateogrie_screen.dart';
 import 'package:dz_shop/screens/favorites/favorit_screen.dart';
+import 'package:dz_shop/screens/products/afich_products.dart';
 import 'package:dz_shop/screens/products/products_screen.dart';
 import 'package:dz_shop/screens/search/search_screen.dart';
 import 'package:dz_shop/screens/settings/settings_screen.dart';
@@ -29,6 +30,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
 
   List<Widget> bottomScreens = [
     ProductsScreen(),
+    // afichProduct(),
     cateogrieScreen(),
     favoritScreen(),
     settingsScreen(),

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dz_shop/screens/products/afich_products.dart';
 import 'bessiness-logic/layout_cuibit/layout_cuibit.dart';
 import 'shered/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ void main() async {
   } else {
     widget = OnBordingScreen();
   }
-
+  print(token);
   runApp(MyApp(
     // onBoarding: onBoarding,
     staretWidget: widget,
@@ -74,7 +75,8 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         title: 'DzShop',
         home: staretWidget,
-        //  home: OnBordingScreen(),
+        //  home: OnBordingScreen(),d
+        //  home: afichProduct(),
       ),
     );
   }
