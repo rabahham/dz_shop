@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
@@ -147,7 +148,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
   }
 
   File? file; // for photo de profile
-
+  String? base64;
   // function get camera photo profile
 
   void apickercameraprofile(ImageSource source) {
@@ -156,6 +157,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
         return;
       }
       file = File(value.path);
+      if (file != null) base64 = base64Encode(file!.readAsBytesSync());
 
       emit(LayoutShopSuccessPickPhotoState());
     }).catchError((e) {
@@ -168,7 +170,7 @@ class LayoutShopCuibit extends Cubit<LayoutShopState> {
     required String name,
     required String phone,
     required String email,
-    required String image,
+    required String? image,
   }) {
     emit(LayoutShopLoadingUpDateProfileDataState());
 

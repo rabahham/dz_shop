@@ -211,9 +211,7 @@ class settingsScreen extends StatelessWidget {
                                         name: nameController.text,
                                         phone: phoneController.text,
                                         email: emailController.text,
-                                        image: cuibtLayout.file != null
-                                            ? cuibtLayout.file!.path
-                                            : photoDeProfile,
+                                        image: cuibtLayout.base64,
                                       );
                                     }
                                   },
